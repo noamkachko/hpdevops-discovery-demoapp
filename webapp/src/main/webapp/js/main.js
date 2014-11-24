@@ -9,11 +9,8 @@
 (function() {
 
 	function loadBands(callback) {
-		var xhr = new XMLHttpRequest(), bands, prefix;
-
-		//  TODO: remove this HACK!!!
-		if(window.location.href.indexOf('demoapp') >= 0) prefix = '/demoapp'; else prefix = '';
-		xhr.open('get', prefix + '/api/bands');
+		var xhr = new XMLHttpRequest(), bands;
+		xhr.open('get', '/api/bands');
 		xhr.onerror = function() {
 			callback('failed to get the bands data');
 		};
