@@ -11,7 +11,7 @@
 		<module>ui-tests</module>
 	</modules>
 
-	<name>Discover Demo App - Tribute to Progressive Music</name>
+	<name>Discover Demo App - Tribute to Progressive Music (Parent)</name>
 
 	<build>
 		<finalName>discover-demo-app</finalName>

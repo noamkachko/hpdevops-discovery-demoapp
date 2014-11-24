@@ -11,4 +11,6 @@
 
 	<artifactId>ui-tests</artifactId>
 
+	<name>Discover Demo App - Tribute to Progressive Music (UI Tests)</name>
+
 </project>
