@@ -4,27 +4,31 @@
 		"name": "Dream Theater",
 		"logo": "images/logo_dt.png",
 		"song": "audio/song_dt.mp3",
+		"songName": "Pull Me Under (1992)",
 		"votes": 0
 	},
 	{
 		"id": 2,
 		"name": "Queensryche",
 		"logo": "images/logo_qsr.png",
-		"song": "some/path",
+		"song": "audio/song_qsr.mp3",
+		"songName": "Queen of the Reich (1981)",
 		"votes": 0
 	},
 	{
 		"id": 3,
 		"name": "Symphony X",
 		"logo": "images/logo_sx.png",
-		"song": "some/path",
+		"song": "audio/song_sx.mp3",
+		"songName": "Set the World on Fire (2007)",
 		"votes": 0
 	},
 	{
 		"id": 4,
 		"name": "Rush",
 		"logo": "images/logo_rush.png",
-		"song": "some/path",
+		"song": "audio/song_rush.mp3",
+		"songName": "Tom Sawyer (1981)",
 		"votes": 0
 	},
 	{
