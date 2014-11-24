@@ -4,6 +4,7 @@
 }
 
 html, body {
+	position: absolute;
 	margin: 0;
 	padding: 0;
 	height: 100%;
@@ -20,13 +21,15 @@ html, body {
 	width: 100%;
 	overflow: hidden;
 	border-bottom: 3px solid #ccc;
+	box-sizing: border-box;
 }
 
 #content {
 	position: absolute;
-	top: 155px;
-	bottom: 75px;
+	top: 150px;
+	bottom: 70px;
 	width: 100%;
+	overflow: hidden;
 }
 
 #footer {
@@ -37,4 +40,42 @@ html, body {
 	width: 100%;
 	overflow: hidden;
 	border-top: 3px solid #ccc;
+	box-sizing: border-box;
+}
+
+#bandsList {
+	position: absolute;
+	bottom: 0;
+	height: 80%;
+	width: 100%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.bandStrip {
+	position: relative;
+	margin: 20px;
+	background: linear-gradient(0deg, #fff, #ccc, #fff);
+	border: 2px solid #ddd;
+	border-radius: 5px;
+}
+
+.bandLogo {
+	display: inline-block;
+	position: relative;
+	height: 100px;
+	width: auto;
+}
+
+.bandTitle {
+	position: absolute;
+	top: 30px;
+	left: 420px;
+	font-size: 40px;
+}
+
+.bandSong {
+	position: absolute;
+	top: 40px;
+	right: 20px;
 }

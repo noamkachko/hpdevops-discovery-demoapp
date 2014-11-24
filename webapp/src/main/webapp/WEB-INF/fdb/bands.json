@@ -2,35 +2,35 @@
 	{
 		"id": 1,
 		"name": "Dream Theater",
-		"logo": "some/path",
-		"song": "some/path",
+		"logo": "images/logo_dt.png",
+		"song": "audio/song_dt.mp3",
 		"votes": 0
 	},
 	{
 		"id": 2,
-		"name": "Queensrÿche",
-		"logo": "some/path",
+		"name": "Queensryche",
+		"logo": "images/logo_qsr.png",
 		"song": "some/path",
 		"votes": 0
 	},
 	{
 		"id": 3,
 		"name": "Symphony X",
-		"logo": "some/path",
+		"logo": "images/logo_sx.png",
 		"song": "some/path",
 		"votes": 0
 	},
 	{
 		"id": 4,
 		"name": "Rush",
-		"logo": "some/path",
+		"logo": "images/logo_rush.png",
 		"song": "some/path",
 		"votes": 0
 	},
 	{
 		"id": 5,
 		"name": "Pink Floyd",
-		"logo": "some/path",
+		"logo": "images/logo_pf.png",
 		"song": "some/path",
 		"votes": 0
 	}

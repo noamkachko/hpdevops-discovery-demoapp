@@ -8,24 +8,41 @@
 'use strict';
 (function() {
 
-	var bands;
-
-	function loadBands() {
-		var xhr = new XMLHttpRequest();
+	function loadBands(callback) {
+		var xhr = new XMLHttpRequest(), bands;
 		xhr.open('get', '/api/bands');
 		xhr.onerror = function() {
-			console.error('failed to get the bands data');
+			callback('failed to get the bands data');
 		};
 		xhr.onload = function() {
 			try {
 				bands = JSON.parse(xhr.responseText);
-				console.log(bands);
+				callback(null, bands);
 			} catch(e) {
-				console.error(e);
+				callback(e);
 			}
 		};
 		xhr.send();
 	}
 
-	loadBands();
+	function renderBands(bands) {
+		var template, listElement, tmpElement;
+		template = document.getElementById('bandStripTemplate');
+		listElement = document.getElementById('bandsList');
+		bands.forEach(function(band) {
+			template.content.querySelector('.bandLogo').src = band.logo;
+			template.content.querySelector('.bandTitle').textContent = band.name.toUpperCase();
+			template.content.querySelector('.bandSong').src = band.song;
+			tmpElement = document.importNode(template.content, true);
+			listElement.appendChild(tmpElement);
+		});
+	}
+
+	loadBands(function(error, bands) {
+		if(error) {
+			console.error(error);
+		} else {
+			renderBands(bands);
+		}
+	});
 })();
