@@ -33,9 +33,10 @@
 	},
 	{
 		"id": 5,
-		"name": "Pink Floyd",
-		"logo": "images/logo_pf.png",
-		"song": "some/path",
+		"name": "Tool",
+		"logo": "images/logo_tool.png",
+		"song": "audio/song_tool.mp3",
+		"songName": "Aenema (1996)",
 		"votes": 0
 	}
 ]
