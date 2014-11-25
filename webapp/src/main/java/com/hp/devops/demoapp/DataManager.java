@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import javax.servlet.ServletContext;
 import java.io.*;
 import java.net.URISyntaxException;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 
 /**
@@ -24,12 +25,21 @@ public class DataManager {
 	static private ArrayList<Band> bands = new ArrayList<Band>();
 
 	static void init(ServletContext servletContext) {
-		DataManager.servletContext = servletContext;
-		DataManager.loadData();
+		if (servletContext != null) {
+			DataManager.servletContext = servletContext;
+			DataManager.loadData();
+		} else {
+			throw new InvalidParameterException("servletContext must not be null");
+		}
+	}
+
+	static boolean isInitialized() {
+		return initialized;
 	}
 
 	static void loadData() {
 		try {
+			if (servletContext == null) throw new Exception("service not initialized");
 			FileResource resource = new FileResource(servletContext.getResource(resourcePath));
 			InputStream inputStream = resource.getInputStream();
 			String content = "";
@@ -51,6 +61,8 @@ public class DataManager {
 			ioException.printStackTrace();
 		} catch (URISyntaxException uriException) {
 			uriException.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
