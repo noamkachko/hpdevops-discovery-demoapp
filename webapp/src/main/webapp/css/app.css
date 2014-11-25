@@ -63,6 +63,10 @@ html, body {
 	opacity: .2;
 }
 
+#contentTitle {
+	margin: 20px;
+}
+
 #bandsList {
 	position: absolute;
 	bottom: 0;
@@ -75,8 +79,8 @@ html, body {
 .bandStrip {
 	position: relative;
 	margin: 20px;
-	background: linear-gradient(0deg, #fff, #ccc, #fff);
-	border: 2px solid #ddd;
+	background: linear-gradient(0deg, #eee, #ccc, #eee);
+	border: 2px solid #ccf;
 	border-radius: 5px;
 }
 
@@ -91,6 +95,13 @@ html, body {
 	position: absolute;
 	top: 30px;
 	left: 420px;
+	font-size: 40px;
+}
+
+.bandVotes {
+	position: absolute;
+	top: 30px;
+	left: 1200px;
 	font-size: 40px;
 }
 

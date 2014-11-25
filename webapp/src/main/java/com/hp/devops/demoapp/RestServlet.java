@@ -6,7 +6,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import java.io.IOException;
-import java.util.Collection;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,6 +32,20 @@ public class RestServlet extends HttpServlet {
 		}
 	}
 
+	@Override
+	public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String[] pathNodes = Utils.nodify(request.getRequestURI());
+		int bandId;
+		if (pathNodes.length == 0) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "path too short");
+		} else if (pathNodes[0].compareTo("band") == 0) {
+			bandId = Integer.parseInt(pathNodes[1]);
+			if (pathNodes[2].compareTo("vote") == 0) {
+				upvoteBand(bandId, response);
+			}
+		}
+	}
+
 	private void serveBands(String[] pathNodes, HttpServletResponse response) throws IOException {
 		JSONArray resBody = new JSONArray();
 		response.setContentType("application/json");
@@ -42,6 +55,24 @@ public class RestServlet extends HttpServlet {
 					resBody.put(band.toJSON());
 				}
 			}
+			response.getOutputStream().print(resBody.toString());
+			response.flushBuffer();
+		} catch (Exception e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	private void upvoteBand(int bandId, HttpServletResponse response) throws IOException {
+		Cookie voted;
+		JSONArray resBody = new JSONArray();
+		response.setContentType("application/json");
+		try {
+			DataManager.upVoteBand(bandId);
+			for (Band band : DataManager.getAll()) {
+				resBody.put(band.toJSONVotes());
+			}
+			voted = new Cookie("hpDevopsDemoApp", "true");
+			response.addCookie(voted);
 			response.getOutputStream().print(resBody.toString());
 			response.flushBuffer();
 		} catch (Exception e) {

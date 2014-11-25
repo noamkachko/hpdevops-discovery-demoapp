@@ -33,4 +33,11 @@ public class Band {
 		r.put("votes", votes);
 		return r;
 	}
+
+	public JSONObject toJSONVotes() {
+		JSONObject r = new JSONObject();
+		r.put("id", id);
+		r.put("votes", votes);
+		return r;
+	}
 }
