@@ -28,7 +28,7 @@ public class DataManager {
 		DataManager.loadData();
 	}
 
-	static private void loadData() {
+	static void loadData() {
 		try {
 			FileResource resource = new FileResource(servletContext.getResource(resourcePath));
 			InputStream inputStream = resource.getInputStream();
@@ -40,9 +40,11 @@ public class DataManager {
 				content += new String(buffer, 0, available);
 			}
 			JSONArray data = new JSONArray(content);
-			bands = new ArrayList<Band>();
-			for (int i = 0; i < data.length(); i++) {
-				bands.add(new Band(data.getJSONObject(i)));
+			synchronized (bands) {
+				bands = new ArrayList<Band>();
+				for (int i = 0; i < data.length(); i++) {
+					bands.add(new Band(data.getJSONObject(i)));
+				}
 			}
 			DataManager.initialized = true;
 		} catch (IOException ioException) {

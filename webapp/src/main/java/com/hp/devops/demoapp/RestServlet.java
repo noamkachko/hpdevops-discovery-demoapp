@@ -29,6 +29,10 @@ public class RestServlet extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "path too short");
 		} else if (pathNodes[0].compareTo("bands") == 0) {
 			serveBands(pathNodes, response);
+		} else if (pathNodes[0].compareTo("reloadDB") == 0) {
+			DataManager.loadData();
+			response.getOutputStream().print("done");
+			response.flushBuffer();
 		}
 	}
 
