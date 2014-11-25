@@ -22,7 +22,6 @@ public class DataManagerTest {
 			DataManager.init(null);
 			Assert.fail("the flow MUST have been fallen before");
 		} catch (Exception e) {
-			Assert.fail("just to fail");
 			Assert.assertEquals(e.getClass(), InvalidParameterException.class);
 			Assert.assertEquals(e.getMessage(), "servletContext must not be null");
 		}
