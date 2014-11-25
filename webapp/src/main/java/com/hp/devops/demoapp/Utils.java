@@ -13,9 +13,11 @@ public class Utils {
 
 	static String[] nodify(String input) {
 		ArrayList<String> nodes = new ArrayList<String>();
-		for (String node : input.split("/")) {
-			if (node.compareTo("") != 0 && node.compareTo("api") != 0) {
-				nodes.add(node);
+		if (input != null) {
+			for (String node : input.split("/")) {
+				if (node.compareTo("") != 0 && node.compareTo("api") != 0) {
+					nodes.add(node);
+				}
 			}
 		}
 		return nodes.toArray(new String[nodes.size()]);
