@@ -63,7 +63,7 @@ public class RestServletTest {
     }
 
     @Test
-    public void voteForBand() throws Exception {
+    public void testVoteForBand() throws Exception {
         String response1 = spec.log().all().expect().statusCode(200).when().put("/band/1/vote").asString();
         List votesList1 = from(response1).get("");
         int votes1 = ((HashMap<String, Integer>) votesList1.get(0)).get("votes");
