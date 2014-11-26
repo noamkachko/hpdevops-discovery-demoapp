@@ -35,7 +35,7 @@
 								totalVotes += vote.votes;
 							});
 							votable = false;
-							document.getElementById('totalVotes').textContent = totalVotes;
+							document.getElementById('totalVotes').textContent = 'total votes: ' + totalVotes;
 							setupVote();
 						}
 					});
