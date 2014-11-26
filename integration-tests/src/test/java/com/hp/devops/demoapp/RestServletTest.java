@@ -7,12 +7,14 @@ package com.hp.devops.demoapp;/**
  */
 
 import com.jayway.restassured.RestAssured;
+import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.specification.RequestSpecification;
 import org.junit.*;
 
 import java.util.List;
 
 import static com.jayway.restassured.path.json.JsonPath.from;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isOneOf;
 import static org.junit.Assert.assertEquals;
 
@@ -45,6 +47,11 @@ public class RestServletTest {
         String result = spec.log().all().expect().statusCode(isOneOf(200)).get("/bands").asString();
         List bandsList = from(result).get("");
         assertEquals("We should have 5 bands", 5, bandsList.size());
+    }
+
+    @Test
+    public void testReloadDb() throws Exception {
+        spec.contentType(ContentType.TEXT).log().all().expect().statusCode(200).body(equalTo("done")).get("/reloadDB");
     }
 
 }

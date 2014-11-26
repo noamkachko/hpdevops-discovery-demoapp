@@ -31,6 +31,7 @@ public class RestServlet extends HttpServlet {
 			serveBands(pathNodes, response);
 		} else if (pathNodes[0].compareTo("reloadDB") == 0) {
 			DataManager.loadData();
+            response.setContentType("text/plain");
 			response.getOutputStream().print("done");
 			response.flushBuffer();
 		}
