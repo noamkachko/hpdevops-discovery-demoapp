@@ -9,45 +9,70 @@ import javax.annotation.PostConstruct;
  */
 public class ConfigurationService {
 
-    static private String protocol = "http";
-    static private String hostName = "localhost";
-    static private int port = 9999;
-    static private String basePath = "/api";
+    private static ConfigurationService instance = new ConfigurationService();
 
-    @PostConstruct
-    public void init(){
+    private String protocol = "http";
+    private String hostName = "localhost";
+    private int port = 9999;
+    private String basePath = "/api";
+    private String proxyHost = "";  //rhvwebcachevip.bastion.europe.hp.com
+    private int proxyPort = 0;  //8080
+
+    private ConfigurationService(){
+
+    }
+    public static ConfigurationService getInstance(){
         if(System.getProperty("hostname")!=null){
-            hostName = System.getProperty("hostname");
+            instance.hostName = System.getProperty("hostname");
         }
         if(System.getProperty("port")!=null){
-            port = Integer.getInteger(System.getProperty("port"));
+            instance.port = Integer.parseInt(System.getProperty("port"));
         }
         if(System.getProperty("protocol")!=null){
-            protocol = System.getProperty("protocol");
+            instance.protocol = System.getProperty("protocol");
         }
         if(System.getProperty("basepath")!=null){
-            basePath = System.getProperty("basepath");
+            instance.basePath = System.getProperty("basepath");
         }
-        System.out.println("Starting the test for " + protocol + "://" + hostName + ":" + port + basePath);
+        if(System.getProperty("proxyhost")!=null){
+            instance.proxyHost =System.getProperty("proxyhost");
+        }
+        if(System.getProperty("proxyport")!=null){
+            instance.proxyPort =Integer.parseInt(System.getProperty("proxyport"));
+        }
+        System.out.println("Starting the test for " + instance.protocol + "://" + instance.hostName + ":" + instance.port + instance.basePath);
+        if(!instance.proxyHost.isEmpty()){
+            System.out.println("The tests will run via proxy: " + instance.proxyHost + ":" + instance.proxyPort);
+        }
+
+        return instance;
     }
 
-    public static String getProtocol() {
+    public String getProtocol() {
         return protocol;
     }
 
-    public static String getHostName() {
+    public String getHostName() {
         return hostName;
     }
 
-    public static int getPort() {
+    public int getPort() {
         return port;
     }
 
-    public static String getBasePath() {
+    public String getBasePath() {
         return basePath;
     }
 
-    public static String getBaseUri(){
+    public String getProxyHost() {
+        return proxyHost;
+    }
+
+    public int getProxyPort() {
+        return proxyPort;
+    }
+
+    public String getBaseUri(){
         return protocol + "://" + hostName;
     }
 }

@@ -23,13 +23,19 @@ import static org.junit.Assert.assertTrue;
 public class RestServletTest {
 
     private static RequestSpecification spec;
+    private static ConfigurationService configurationService = ConfigurationService.getInstance();
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        RestAssured.baseURI = ConfigurationService.getBaseUri();
-        RestAssured.port = ConfigurationService.getPort();
-        RestAssured.basePath = ConfigurationService.getBasePath();
+        RestAssured.baseURI = configurationService.getBaseUri();
+        RestAssured.port = configurationService.getPort();
+        RestAssured.basePath = configurationService.getBasePath();
+        if(!configurationService.getProxyHost().isEmpty()){
+            RestAssured.proxy(configurationService.getProxyHost(),configurationService.getProxyPort());
+        }
+
         spec = RestAssured.given();
+        System.out.println("Base URI: " + configurationService.getBaseUri());
     }
 
     @AfterClass
@@ -57,7 +63,7 @@ public class RestServletTest {
     }
 
     @Test
-    public void voteForBand() throws Exception {
+    public void testVoteForBand() throws Exception {
         String response1 = spec.log().all().expect().statusCode(200).when().put("/band/1/vote").asString();
         List votesList1 = from(response1).get("");
         int votes1 = ((HashMap<String, Integer>) votesList1.get(0)).get("votes");
