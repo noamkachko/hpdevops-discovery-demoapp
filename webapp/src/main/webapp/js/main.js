@@ -27,13 +27,15 @@
 				};
 				bandStrips[i].onclick = function() {
 					vote(this.dataset.bandId, function(error, votes) {
-						var stripEl;
+						var stripEl, totalVotes = 0;
 						if(error) {console.error(error);} else {
 							votes.forEach(function(vote) {
 								stripEl = document.querySelector('div[data-band-id="' + vote.id + '"]');
 								stripEl.querySelector('.bandVotes').textContent = vote.votes;
+								totalVotes += vote.votes;
 							});
 							votable = false;
+							document.getElementById('totalVotes').textContent = 'total votes: ' + totalVotes;
 							setupVote();
 						}
 					});
@@ -75,7 +77,7 @@
 	}
 
 	function renderBands(bands) {
-		var template, listElement, tmpElement;
+		var template, listElement, tmpElement, totalVotes = 0;
 		template = document.getElementById('bandStripTemplate');
 		listElement = document.getElementById('bandsList');
 		bands.forEach(function(band) {
@@ -86,7 +88,9 @@
 			template.content.querySelector('.bandSong').src = band.song;
 			tmpElement = document.importNode(template.content, true);
 			tmpElement = listElement.appendChild(tmpElement);
+			totalVotes += band.votes;
 		});
+		document.getElementById('totalVotes').textContent = 'total votes: ' + totalVotes;
 	}
 
 	loadBands(function(error, bands) {
