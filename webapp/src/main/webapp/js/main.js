@@ -27,13 +27,15 @@
 				};
 				bandStrips[i].onclick = function() {
 					vote(this.dataset.bandId, function(error, votes) {
-						var stripEl;
+						var stripEl, totalVotes = 0;
 						if(error) {console.error(error);} else {
 							votes.forEach(function(vote) {
 								stripEl = document.querySelector('div[data-band-id="' + vote.id + '"]');
 								stripEl.querySelector('.bandVotes').textContent = vote.votes;
+								totalVotes += vote.votes;
 							});
 							votable = false;
+							document.getElementById('totalVotes').textContent = totalVotes;
 							setupVote();
 						}
 					});
