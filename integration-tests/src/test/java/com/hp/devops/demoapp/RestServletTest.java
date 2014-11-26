@@ -23,13 +23,19 @@ import static org.junit.Assert.assertTrue;
 public class RestServletTest {
 
     private static RequestSpecification spec;
+    private static ConfigurationService configurationService = ConfigurationService.getInstance();
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        RestAssured.baseURI = ConfigurationService.getBaseUri();
-        RestAssured.port = ConfigurationService.getPort();
-        RestAssured.basePath = ConfigurationService.getBasePath();
+        RestAssured.baseURI = configurationService.getBaseUri();
+        RestAssured.port = configurationService.getPort();
+        RestAssured.basePath = configurationService.getBasePath();
+        if(!configurationService.getProxyHost().isEmpty()){
+            RestAssured.proxy(configurationService.getProxyHost(),configurationService.getProxyPort());
+        }
+
         spec = RestAssured.given();
+        System.out.println("Base URI: " + configurationService.getBaseUri());
     }
 
     @AfterClass
