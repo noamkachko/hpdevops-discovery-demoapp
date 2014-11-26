@@ -77,6 +77,8 @@ public class RestServlet extends HttpServlet {
 				resBody.put(band.toJSONVotes());
 			}
 			voted = new Cookie("hpDevopsDemoApp", "true");
+			voted.setPath("/");
+			voted.setMaxAge(60);
 			response.addCookie(voted);
 			response.getOutputStream().print(resBody.toString());
 			response.flushBuffer();
