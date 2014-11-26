@@ -11,12 +11,14 @@ import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.specification.RequestSpecification;
 import org.junit.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static com.jayway.restassured.path.json.JsonPath.from;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.isOneOf;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class RestServletTest {
 
@@ -51,7 +53,21 @@ public class RestServletTest {
 
     @Test
     public void testReloadDb() throws Exception {
-        spec.contentType(ContentType.TEXT).log().all().expect().statusCode(200).body(equalTo("done")).get("/reloadDB");
+        spec.log().all().expect().statusCode(200).contentType(ContentType.TEXT).body(equalTo("done")).get("/reloadDB");
+    }
+
+    @Test
+    public void voteForBand() throws Exception {
+        String response1 = spec.log().all().expect().statusCode(200).when().put("/band/1/vote").asString();
+        List votesList1 = from(response1).get("");
+        int votes1 = ((HashMap<String, Integer>) votesList1.get(0)).get("votes");
+        System.out.println("Votes1: " + votesList1.get(0));
+        String response2 = spec.log().all().expect().statusCode(200).when().put("/band/1/vote").asString();
+        List votesList2 = from(response2).get("");
+        int votes2 = ((HashMap<String, Integer>) votesList2.get(0)).get("votes");
+        System.out.println("Votes2: " + votesList2.get(0));
+        int diff = votes2 - votes1;
+        assertTrue("Votes should increase by 1", diff == 1);
     }
 
 }
