@@ -13,4 +13,23 @@
 
 	<name>Discover Demo App - Tribute to Progressive Music (UI Tests)</name>
 
+	<dependencies>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>2.43.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>ui-tests</finalName>
+	</build>
+
 </project>
