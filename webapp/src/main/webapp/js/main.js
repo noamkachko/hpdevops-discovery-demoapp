@@ -77,7 +77,7 @@
 	}
 
 	function renderBands(bands) {
-		var template, listElement, tmpElement;
+		var template, listElement, tmpElement, totalVotes = 0;
 		template = document.getElementById('bandStripTemplate');
 		listElement = document.getElementById('bandsList');
 		bands.forEach(function(band) {
@@ -88,7 +88,9 @@
 			template.content.querySelector('.bandSong').src = band.song;
 			tmpElement = document.importNode(template.content, true);
 			tmpElement = listElement.appendChild(tmpElement);
+			totalVotes += band.votes;
 		});
+		document.getElementById('totalVotes').textContent = 'total votes: ' + totalVotes;
 	}
 
 	loadBands(function(error, bands) {
