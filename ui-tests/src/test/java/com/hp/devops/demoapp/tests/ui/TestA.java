@@ -20,7 +20,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 public class TestA {
 
 	static private WebDriver driver;
-	static private boolean isBehindProxy = true;
+	static private boolean isBehindProxy = false;
 	static private final String PROXY = "web-proxy.bbn.hp.com:8080";
 
 	@BeforeClass
