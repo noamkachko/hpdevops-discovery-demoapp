@@ -39,7 +39,6 @@ public class TestA {
 
 	@Test
 	public void testUIcaseA() {
-		Assert.fail("intentional fail");
 		WebElement query = driver.findElement(By.id("bandsList"));
 		Assert.assertEquals(query.getTagName(), "div");
 		Assert.assertEquals(query.isDisplayed(), true);

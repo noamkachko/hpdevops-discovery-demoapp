@@ -40,7 +40,6 @@ public class BandTest {
 
 	@Test
 	public void bandTestB() {
-		Assert.fail("intentional fail");
 		try {
 			Band band = new Band(new JSONObject());
 			Assert.fail("the flow MUST have been fallen before");
