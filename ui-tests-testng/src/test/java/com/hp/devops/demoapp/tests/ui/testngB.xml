@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="SuiteB" verbose="1">
+	<test name="Bootstrap">
+		<classes>
+			<class name="com.hp.devops.demoapp.tests.ui.TestSuiteB"/>
+		</classes>
+	</test>
+
+	<test name="Trial">
+		<classes>
+			<class name="com.hp.devops.demoapp.tests.ui.TestSuiteA"/>
+			<class name="com.hp.devops.demoapp.tests.ui.TestSuiteB"/>
+		</classes>
+	</test>
+</suite>
