@@ -21,31 +21,51 @@ public class TestA {
 
 	static private WebDriver driver;
 	static private boolean isBehindProxy = false;
-	static private final String PROXY = "web-proxy.bbn.hp.com:8080";
+	static private String testProxy = "web-proxy.bbn.hp.com:8081";
+    static private String appUrl = "http://54.146.140.70:9000";
 
 	@BeforeClass
 	static public void beforeAll() {
+
+        if("true".equals(System.getProperty("proxy"))){
+            isBehindProxy = true;
+            System.out.println("isBehindProxy is true!");
+            if(System.getenv("testproxy")!=null){
+                testProxy = System.getenv("testproxy");
+            }
+            System.out.println("testProxy is " + testProxy + "; can be modified via environment variable, i.e., 'export textproxy=web-proxy.bbn.hp.com:8080'");
+        } else {
+            System.out.println("We do not use proxy");
+        }
+
 		if (isBehindProxy) {
 			Proxy proxy = new Proxy();
-			proxy.setHttpProxy(PROXY);
+			proxy.setHttpProxy(testProxy);
 			DesiredCapabilities cap = new DesiredCapabilities();
 			cap.setCapability(CapabilityType.PROXY, proxy);
 			driver = new HtmlUnitDriver(cap);
 		} else {
 			driver = new HtmlUnitDriver();
 		}
-		driver.get("http://54.146.140.70:9000");
-	}
+        if(System.getProperty("appUrl")!=null){
+            driver.get(System.getProperty("appUrl"));
+        } else {
+            driver.get(appUrl);
+        }
+        System.out.println("App URL is " + appUrl+"; can be modifed via system property, i.e., '-DappUrl=\"http://54.146.140.70:9000\"'");
+    }
 
 	@Test
 	public void testUIcaseA() {
-		WebElement query = driver.findElement(By.id("bandsList"));
+        System.out.println("Proudly running test " + Thread.currentThread().getStackTrace()[1]);
+        WebElement query = driver.findElement(By.id("bandsList"));
 		Assert.assertEquals(query.getTagName(), "div");
 		Assert.assertEquals(query.isDisplayed(), true);
 	}
 
 	@Test
 	public void testUIcaseB() {
+        System.out.println("Proudly running test " + Thread.currentThread().getStackTrace()[1]);
 		WebElement query = driver.findElement(By.id("totalVotes"));
 		Assert.assertEquals(query.getTagName(), "div");
 		Assert.assertEquals(query.isDisplayed(), true);
