@@ -31,8 +31,8 @@ public class TestSuiteB {
 		autPort = System.getProperty("APP_PORT");
 		if (autPort == null) autPort = "9000";
 
-		//proxyHost = System.getProperty("PROXY_HOST");
-		//proxyPort = System.getProperty("PROXY_PORT");
+		proxyHost = System.getProperty("PROXY_HOST");
+		proxyPort = System.getProperty("PROXY_PORT");
 
 		if (proxyHost != null && proxyPort != null) {
 			Proxy proxy = new Proxy();
