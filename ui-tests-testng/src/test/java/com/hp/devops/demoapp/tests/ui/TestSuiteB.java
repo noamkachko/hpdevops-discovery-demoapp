@@ -27,14 +27,14 @@ public class TestSuiteB {
 
 	private void setUP() {
 		autHost = System.getProperty("APP_HOST");
-		if (autHost == null) autHost = "http://54.146.140.70";
+		if (autHost == null || autHost == "") autHost = "http://54.146.140.70";
 		autPort = System.getProperty("APP_PORT");
-		if (autPort == null) autPort = "9000";
+		if (autPort == null || autPort == "") autPort = "9000";
 
 		proxyHost = System.getProperty("PROXY_HOST");
 		proxyPort = System.getProperty("PROXY_PORT");
 
-		if (proxyHost != null && proxyPort != null) {
+		if (proxyHost != null && proxyPort != null && proxyHost != "" && proxyPort != "") {
 			Proxy proxy = new Proxy();
 			proxy.setHttpProxy(proxyHost + ":" + proxyPort);
 			DesiredCapabilities cap = new DesiredCapabilities();
