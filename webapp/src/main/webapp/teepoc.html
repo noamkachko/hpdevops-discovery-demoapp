@@ -203,12 +203,17 @@
         }
     }
 
+    function buildOptionsUIForTestNG() {
+	    document.getElementById("optionalFields").innerHTML = '';
+
+    }
+
     //show the tables of tests (predefined array at the beginning)
     function showOptionalParams() {
         if (document.getElementById("jenkinsUrl").value.length > 3 && document.getElementById("techStack").selectedIndex > 0) {
 
 	        if (document.getElementById('techStack').selectedIndex === 2) {
-
+		        buildOptionsUIForTestNG();
 	        } else {
 		        document.getElementById("optionalFields").innerHTML = "<table id='testsList'><thead><tr><th>Test class</th><th>Test name</th><th>Add to run?</th></tr></thead>";
 		        tests.forEach(function (element) {
