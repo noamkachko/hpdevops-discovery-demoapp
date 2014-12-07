@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 5px;
+        }
+
+        th {
+            text-align: left;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 0px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+        button
+        {
+            width: 100px; height : 50px;
+        }
+
+    </style>
+</head>
+<body onload="initTable();">
+<table id=testTable style="width:50%">
+    <tr>
+        <th>Test class</th>
+        <th>Test Name</th>
+    </tr>
+
+</table>
+
+<br/>
+<br/>
+<table  id=paramTable style="width:50%">
+    <tr>
+        <th>Parameter Name</th>
+        <th>Parameter Value</th>
+    </tr>
+    <tr>
+        <td><input type="text"/></th>
+        <td><input type="text"/></th>
+    </tr>
+    <tr>
+        <td><input type="text"/></th>
+        <td><input type="text"/></th>
+    </tr>
+    <tr>
+        <td><input type="text"/></th>
+        <td><input type="text"/></th>
+    </tr>
+</table>
+<br/>
+<br/>
+<br/>
+<button name="button" id="submit">submit</button>
+<script>
+    function initTable() {
+
+        var table = document.getElementById("testTable");
+        var parametersTable=document.getElementById("paramTable");
+        var currentSelectedTestIndex=-1;
+        var tests = [];
+
+        function test(cclass, mmethod, ttech) {
+            this.cclass = cclass;
+            this.mmethod = mmethod;
+            this.ttech = ttech;
+        }
+
+        tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestA", "testUIcaseA", "SeleniumJunit");
+        tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestA", "testUIcaseB", "SeleniumJunit");
+        tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestB", "testUIcaseC", "SeleniumJunit");
+        tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestB", "testUIcaseD", "SeleniumJunit");
+        tests.forEach(function (element) {
+
+            table.innerHTML += "<tr><td>" + element.cclass + "</td><td>" + element.mmethod + "</td>" + "</tr>";
+        });
+        for (var i = 1, row; row = table.rows[i]; i++) {
+           row.onclick = function () {
+                for (var i = 1, row; row = table.rows[i]; i++) {
+                    if (this !== row) {
+                        row.style.color = 'DarkGray';
+                    }
+                    else {
+                        row.style.color = 'black'
+                        //set the current selected index
+                        currentSelectedTestIndex=i;
+                    }
+                }
+               for (var i = 1, row; row = parametersTable.rows[i]; i++) {
+                   for (var j = 0, col; col = row.cells[j]; j++) {
+                     col.firstChild.value='';
+                   }
+               }
+
+            };
+        }
+
+        var submitButton=document.getElementById("submit");
+        submitButton.onclick=function(){
+            console.log("click me");
+        }
+
+    }
+
+</script>
+
+</body>
+</html>
