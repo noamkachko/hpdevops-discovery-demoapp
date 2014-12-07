@@ -64,7 +64,7 @@
             text-align: center;
         }
 
-        /* Chrome, Safari, Opera */
+            /* Chrome, Safari, Opera */
         @-webkit-keyframes optionalmove {
             from {
                 opacity: 0.1;
@@ -92,14 +92,15 @@
     <div id="wholeForm">
         <div id="mandatoryFields" onkeyup="showOptionalParams()">
             <label for="jenkinsUrl" width="20%">Jenkins URL: </label>
-            <input type="text" name="jenkinsUrl" id="jenkinsUrl" class="mandatoryField" size="80" value="http://myd-vm02771.hpswlabs.adapps.hp.com:8080/jenkins"/>
+            <input type="text" name="jenkinsUrl" id="jenkinsUrl" class="mandatoryField" size="80"
+                   value="http://myd-vm02771.hpswlabs.adapps.hp.com:8080/jenkins"/>
 
             <p/>
             <label for="techStack">Technology stack: </label>
             <select name="techStack" id="techStack" class="mandatoryField" max-width="100"
                     onchange="showOptionalParams(); ">
                 <option value="">Select the tests technology...</option>
-                <option value="SeleniumJunit">Selenium/JUnit</option>
+                <option value="Selenium-Junit">Selenium/JUnit</option>
                 <option value="SeleniumTestng">Selenium/TestNG</option>
                 <option value="UFT">UFT</option>
             </select>
@@ -126,18 +127,18 @@
     }
 
     var tests = [];
-    tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestA", "testUIcaseA", "SeleniumJunit");
-    tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestA", "testUIcaseB", "SeleniumJunit");
-    tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestB", "testUIcaseC", "SeleniumJunit");
-    tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestB", "testUIcaseD", "SeleniumJunit");
+    tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestA", "testUIcaseA", "Selenium-Junit");
+    tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestA", "testUIcaseB", "Selenium-Junit");
+    tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestB", "testUIcaseC", "Selenium-Junit");
+    tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestB", "testUIcaseD", "Selenium-Junit");
 
     var movingDiv = document.getElementById("optionalFields");
     movingDiv.addEventListener("webkitAnimationEnd", moveButton, false);
     movingDiv.addEventListener("animationend", moveButton, false);
-    function moveButton(){
-            document.getElementById("submitter").style.left = '30px';
-            document.getElementById("submitter").style.top = (movingDiv.offsetTop + movingDiv.offsetHeight + 40) + 'px';
-            document.getElementById("submitter").style.visibility = "visible";
+    function moveButton() {
+        document.getElementById("submitter").style.left = '30px';
+        document.getElementById("submitter").style.top = (movingDiv.offsetTop + movingDiv.offsetHeight + 40) + 'px';
+        document.getElementById("submitter").style.visibility = "visible";
     }
 
 
@@ -155,22 +156,24 @@
             });
         }
         var testsString = buildJunitTestString(selectedTests);
-        alert(testsString);
 
-        /*        var xmlhttp = new XMLHttpRequest();
-         xmlhttp.onreadystatechange = function () {
-         alert('Done with status ' + xmlhttp.status);
-         }
-         //http://myd-vm02771.hpswlabs.adapps.hp.com:8080/jenkins
-         var dest = document.getElementById("jenkinsUrl").value + '/job/' + document.getElementById("techStack").value + '/build?delay=0sec';
-         console.log("Destination URL: " + dest);
-         xmlhttp.open('POST', dest, true);
-         xmlhttp.setRequestHeader("Content-type", "application/json");
-         xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
-         //{json: {"parameter": [{"name": "TEST_PARAM", "value": "okay"}]}}
-         var data = "json=" + encodeURI(document.getElementById("params").value);
-         console.log("Form data: " + data);
-         xmlhttp.send(data);*/
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+        }
+        //http://myd-vm02771.hpswlabs.adapps.hp.com:8080/jenkins
+        //var dest = document.getElementById("jenkinsUrl").value + '/job/' + document.getElementById("techStack").value + '/build?delay=0sec';
+        var dest = document.getElementById("jenkinsUrl").value + '/job/' + document.getElementById("techStack").value + '/build?delay=0sec';
+        console.log("Destination URL: " + dest);
+        xmlhttp.open('POST', dest, true);
+        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+        var dTestString = '-Dtest=' + testsString;
+        console.log('DTESTSTRING: ' + dTestString);
+        //json="{'parameter': [{'name': 'useProxy', 'value': 'false'},{'name': 'appUrl', 'value': 'http://myd-vm05069.hpswlabs.adapps.hp.com:9080'},{'name': 'testsToRun', 'value': '-Dtest=com.hp.devops.demoapp.tests.ui.TestA#testUIcaseA+testUIcaseB'}]}"
+        var data = "json=" + "{'parameter': [{'name': 'useProxy', 'value': 'false'},{'name': 'appUrl', 'value': 'http://myd-vm05069.hpswlabs.adapps.hp.com:9080'},{'name': 'testsToRun', 'value': '" + encodeURIComponent('-Dtest=' + testsString) + "'}]}";
+        console.log('data = ' + data);
+        console.log("Form data: " + data);
+        xmlhttp.send(data);
 
     }
 
@@ -183,8 +186,8 @@
             var allStrings = {};
             selectedTests.forEach(function (element) {
                 var afterSplit = element.split("#");
-                if(afterSplit.length == 2){
-                    if(allClasses.indexOf(afterSplit[0]) == -1){    //first method for the class
+                if (afterSplit.length == 2) {
+                    if (allClasses.indexOf(afterSplit[0]) == -1) {    //first method for the class
                         allClasses.push(afterSplit[0]);
                         allStrings[afterSplit[0]] = afterSplit[1];
                     } else {    //add the method only using the # delimiter
@@ -197,7 +200,7 @@
             });
             var finalString = "";
             allClasses.forEach(function (element) {
-               finalString += element + "#" + allStrings[element] + ",";
+                finalString += element + "#" + allStrings[element] + ",";
             });
             return finalString.substring(0, finalString.lastIndexOf(','));
         }
@@ -211,14 +214,14 @@
             tests.forEach(function (element) {
                 if (element.ttech == document.getElementById("techStack").value) {
                     document.getElementById("testsList").innerHTML += "<tr><td>" + element.cclass + "</td><td>" + element.mmethod + "</td>" +
-                    "<td><input type='checkbox' class='testSelector' value=" + element.cclass + "#" + element.mmethod + "></td></tr>";
+                            "<td><input type='checkbox' class='testSelector' value=" + element.cclass + "#" + element.mmethod + "></td></tr>";
                 }
             });
             document.getElementById("testsList").innerHTML += "<tr><td>All classes</td><td>All tests</td>" +
-            "<td><input type='checkbox' class='testSelector' id='allTestsSelected' value=all></td></tr>";
+                    "<td><input type='checkbox' class='testSelector' id='allTestsSelected' value=all></td></tr>";
             document.getElementById("optionalFields").innerHTML += "</table>";
 
-            if(document.getElementById("optionalFields").style.visibility != "visible") {
+            if (document.getElementById("optionalFields").style.visibility != "visible") {
                 document.getElementById("optionalFields").style.visibility = "visible";
                 document.getElementById("optionalFields").style.animation = "optionalmove 3s 1 forwards";
                 document.getElementById("optionalFields").style.webkitAnimation = "optionalmove 3s 1 forwards";
