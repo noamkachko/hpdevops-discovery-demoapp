@@ -35,10 +35,6 @@ public class TestSuiteB {
 		proxyPort = System.getProperty("PROXY_PORT");
 
 		if (proxyHost != null && proxyPort != null && proxyHost != "" && proxyPort != "") {
-
-			System.out.println(proxyHost);
-			System.out.println(proxyPort);
-
 			Proxy proxy = new Proxy();
 			proxy.setHttpProxy(proxyHost + ":" + proxyPort);
 			DesiredCapabilities cap = new DesiredCapabilities();
