@@ -36,7 +36,7 @@
 			opacity: 0;
 			border: 2px solid gray;
 			border-radius: 15px;
-			width: 100%;
+			width: 60%;
 			z-index: -1;
 		}
 
@@ -141,15 +141,16 @@
 		document.getElementById("submitter").style.visibility = "visible";
 	}
 
+
 	function runJob() {
 
 		var selectedTests = [];
 
 		var selectors = document.getElementById("testsList").getElementsByClassName("testSelector");
 		var arrSelectors = Array.prototype.slice.call(selectors);
-		if(!document.getElementById("allTestsSelected").checked) {  //nothing should be passed for running all tests
-			arrSelectors.forEach(function(element) {
-				if(element.checked) {
+		if (!document.getElementById("allTestsSelected").checked) {  //nothing should be passed for running all tests
+			arrSelectors.forEach(function (element) {
+				if (element.checked) {
 					selectedTests[selectedTests.length] = element.value;
 				}
 			});
@@ -157,7 +158,7 @@
 		var testsString = buildJunitTestString(selectedTests);
 
 		var xmlhttp = new XMLHttpRequest();
-		xmlhttp.onreadystatechange = function() {
+		xmlhttp.onreadystatechange = function () {
 		}
 		//http://myd-vm02771.hpswlabs.adapps.hp.com:8080/jenkins
 		//var dest = document.getElementById("jenkinsUrl").value + '/job/' + document.getElementById("techStack").value + '/build?delay=0sec';
@@ -178,15 +179,15 @@
 
 	//create string like class1#test1+test2,class2#test3+test4 from array of FQDN classname#method
 	function buildJunitTestString(selectedTests) {
-		if(selectedTests.length == 0) {
+		if (selectedTests.length == 0) {
 			return "";
 		} else {
 			var allClasses = [];
 			var allStrings = {};
-			selectedTests.forEach(function(element) {
+			selectedTests.forEach(function (element) {
 				var afterSplit = element.split("#");
-				if(afterSplit.length == 2) {
-					if(allClasses.indexOf(afterSplit[0]) == -1) {    //first method for the class
+				if (afterSplit.length == 2) {
+					if (allClasses.indexOf(afterSplit[0]) == -1) {    //first method for the class
 						allClasses.push(afterSplit[0]);
 						allStrings[afterSplit[0]] = afterSplit[1];
 					} else {    //add the method only using the # delimiter
@@ -198,36 +199,29 @@
 				}
 			});
 			var finalString = "";
-			allClasses.forEach(function(element) {
+			allClasses.forEach(function (element) {
 				finalString += element + "#" + allStrings[element] + ",";
 			});
 			return finalString.substring(0, finalString.lastIndexOf(','));
 		}
 	}
 
-	function showOptionalParamsTestNG() {
-		var container = document.getElementById("optionalFields"), tmp;
-		container.innerHTML = '';
-	}
-
 	//show the tables of tests (predefined array at the beginning)
 	function showOptionalParams() {
-		if(document.getElementById("jenkinsUrl").value.length > 3 && document.getElementById("techStack").selectedIndex > 0) {
+		if (document.getElementById("jenkinsUrl").value.length > 3 && document.getElementById("techStack").selectedIndex > 0) {
 
-			if(document.getElementById("techStack").selectedIndex == 2) {
-				showOptionalParamsTestNG();
-			} else {
-				document.getElementById("optionalFields").innerHTML = "<table id='testsList'><thead><tr><th>Test class</th><th>Test name</th><th>Add to run?</th></tr></thead>";
-				tests.forEach(function(element) {
-					if(element.ttech == document.getElementById("techStack").value) {
-						document.getElementById("testsList").innerHTML += "<tr><td>" + element.cclass + "</td><td>" + element.mmethod + "</td>" + "<td><input type='checkbox' class='testSelector' value=" + element.cclass + "#" + element.mmethod + "></td></tr>";
-					}
-				});
-				document.getElementById("testsList").innerHTML += "<tr><td>All classes</td><td>All tests</td>" + "<td><input type='checkbox' class='testSelector' id='allTestsSelected' value=all></td></tr>";
-				document.getElementById("optionalFields").innerHTML += "</table>";
-			}
+			document.getElementById("optionalFields").innerHTML = "<table id='testsList'><thead><tr><th>Test class</th><th>Test name</th><th>Add to run?</th></tr></thead>";
+			tests.forEach(function (element) {
+				if (element.ttech == document.getElementById("techStack").value) {
+					document.getElementById("testsList").innerHTML += "<tr><td>" + element.cclass + "</td><td>" + element.mmethod + "</td>" +
+							"<td><input type='checkbox' class='testSelector' value=" + element.cclass + "#" + element.mmethod + "></td></tr>";
+				}
+			});
+			document.getElementById("testsList").innerHTML += "<tr><td>All classes</td><td>All tests</td>" +
+					"<td><input type='checkbox' class='testSelector' id='allTestsSelected' value=all></td></tr>";
+			document.getElementById("optionalFields").innerHTML += "</table>";
 
-			if(document.getElementById("optionalFields").style.visibility != "visible") {
+			if (document.getElementById("optionalFields").style.visibility != "visible") {
 				document.getElementById("optionalFields").style.visibility = "visible";
 				document.getElementById("optionalFields").style.animation = "optionalmove 3s 1 forwards";
 				document.getElementById("optionalFields").style.webkitAnimation = "optionalmove 3s 1 forwards";
@@ -236,6 +230,8 @@
 			}
 		}
 	}
+
+
 </script>
 
 </body>
