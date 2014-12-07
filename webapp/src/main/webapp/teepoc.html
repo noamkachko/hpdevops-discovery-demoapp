@@ -207,24 +207,28 @@
     function showOptionalParams() {
         if (document.getElementById("jenkinsUrl").value.length > 3 && document.getElementById("techStack").selectedIndex > 0) {
 
-            document.getElementById("optionalFields").innerHTML = "<table id='testsList'><thead><tr><th>Test class</th><th>Test name</th><th>Add to run?</th></tr></thead>";
-            tests.forEach(function (element) {
-                if (element.ttech == document.getElementById("techStack").value) {
-                    document.getElementById("testsList").innerHTML += "<tr><td>" + element.cclass + "</td><td>" + element.mmethod + "</td>" +
-                    "<td><input type='checkbox' class='testSelector' value=" + element.cclass + "#" + element.mmethod + "></td></tr>";
-                }
-            });
-            document.getElementById("testsList").innerHTML += "<tr><td>All classes</td><td>All tests</td>" +
-            "<td><input type='checkbox' class='testSelector' id='allTestsSelected' value=all></td></tr>";
-            document.getElementById("optionalFields").innerHTML += "</table>";
+	        if (document.getElementById('techStack').selectedIndex === 2) {
 
-            if(document.getElementById("optionalFields").style.visibility != "visible") {
-                document.getElementById("optionalFields").style.visibility = "visible";
-                document.getElementById("optionalFields").style.animation = "optionalmove 3s 1 forwards";
-                document.getElementById("optionalFields").style.webkitAnimation = "optionalmove 3s 1 forwards";
-            } else {
-                moveButton();
-            }
+	        } else {
+		        document.getElementById("optionalFields").innerHTML = "<table id='testsList'><thead><tr><th>Test class</th><th>Test name</th><th>Add to run?</th></tr></thead>";
+		        tests.forEach(function (element) {
+			        if (element.ttech == document.getElementById("techStack").value) {
+				        document.getElementById("testsList").innerHTML += "<tr><td>" + element.cclass + "</td><td>" + element.mmethod + "</td>" +
+						        "<td><input type='checkbox' class='testSelector' value=" + element.cclass + "#" + element.mmethod + "></td></tr>";
+			        }
+		        });
+		        document.getElementById("testsList").innerHTML += "<tr><td>All classes</td><td>All tests</td>" +
+				        "<td><input type='checkbox' class='testSelector' id='allTestsSelected' value=all></td></tr>";
+		        document.getElementById("optionalFields").innerHTML += "</table>";
+
+		        if(document.getElementById("optionalFields").style.visibility != "visible") {
+			        document.getElementById("optionalFields").style.visibility = "visible";
+			        document.getElementById("optionalFields").style.animation = "optionalmove 3s 1 forwards";
+			        document.getElementById("optionalFields").style.webkitAnimation = "optionalmove 3s 1 forwards";
+		        } else {
+			        moveButton();
+		        }
+	        }
         }
     }
 
