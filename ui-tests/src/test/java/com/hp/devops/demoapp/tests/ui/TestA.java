@@ -1,7 +1,9 @@
 package com.hp.devops.demoapp.tests.ui;
 
-import org.junit.*;
-
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
@@ -19,40 +21,63 @@ import org.openqa.selenium.remote.DesiredCapabilities;
  */
 public class TestA {
 
-	static private WebDriver driver;
-	static private boolean isBehindProxy = false;
-	static private final String PROXY = "web-proxy.bbn.hp.com:8080";
+    static private WebDriver driver;
+    static private boolean isBehindProxy = false;
+    static private String testProxy = "web-proxy.bbn.hp.com:8081";
+    static private String appUrl = "http://54.146.140.70:9000";
 
-	@BeforeClass
-	static public void beforeAll() {
-		if (isBehindProxy) {
-			Proxy proxy = new Proxy();
-			proxy.setHttpProxy(PROXY);
-			DesiredCapabilities cap = new DesiredCapabilities();
-			cap.setCapability(CapabilityType.PROXY, proxy);
-			driver = new HtmlUnitDriver(cap);
-		} else {
-			driver = new HtmlUnitDriver();
-		}
-		driver.get("http://54.146.140.70:9000");
-	}
+    @BeforeClass
+    static public void beforeAll() {
 
-	@Test
-	public void testUIcaseA() {
-		WebElement query = driver.findElement(By.id("bandsList"));
-		Assert.assertEquals(query.getTagName(), "div");
-		Assert.assertEquals(query.isDisplayed(), true);
-	}
+        if ("true".equals(System.getProperty("proxy"))) {
+            isBehindProxy = true;
+            System.out.println("isBehindProxy is true!");
+            if (System.getenv("testproxy") != null) {
+                testProxy = System.getenv("testproxy");
+            }
+            System.out.println("testProxy is " + testProxy + "; can be modified via environment variable, i.e., 'export textproxy=web-proxy.bbn.hp.com:8080'");
+        }
+        else {
+            System.out.println("We do not use proxy");
+        }
 
-	@Test
-	public void testUIcaseB() {
-		WebElement query = driver.findElement(By.id("totalVotes"));
-		Assert.assertEquals(query.getTagName(), "div");
-		Assert.assertEquals(query.isDisplayed(), true);
-	}
+        if (isBehindProxy) {
+            Proxy proxy = new Proxy();
+            proxy.setHttpProxy(testProxy);
+            DesiredCapabilities cap = new DesiredCapabilities();
+            cap.setCapability(CapabilityType.PROXY, proxy);
+            driver = new HtmlUnitDriver(cap);
+        }
+        else {
+            driver = new HtmlUnitDriver();
+        }
+        if (System.getProperty("appUrl") != null) {
+            appUrl = System.getProperty("appUrl");
+        }
+        System.out.println("App URL is " + appUrl + "; can be modifed via system property, i.e., '-DappUrl=\"http://54.146.140.70:9000\"'");
 
-	@AfterClass
-	static public void afterAll() {
-		driver.quit();
-	}
+        driver.get(appUrl);
+
+    }
+
+    @Test
+    public void testUIcaseA() {
+        System.out.println("Proudly running test " + Thread.currentThread().getStackTrace()[1]);
+        WebElement query = driver.findElement(By.id("bandsList"));
+        Assert.assertEquals(query.getTagName(), "div");
+        Assert.assertEquals(query.isDisplayed(), true);
+    }
+
+    @Test
+    public void testUIcaseB() {
+        System.out.println("Proudly running test " + Thread.currentThread().getStackTrace()[1]);
+        WebElement query = driver.findElement(By.id("totalVotes"));
+        Assert.assertEquals(query.getTagName(), "div");
+        Assert.assertEquals(query.isDisplayed(), true);
+    }
+
+    @AfterClass
+    static public void afterAll() {
+        driver.quit();
+    }
 }
