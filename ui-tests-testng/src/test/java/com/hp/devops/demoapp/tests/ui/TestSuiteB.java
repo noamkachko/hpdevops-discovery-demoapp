@@ -26,22 +26,22 @@ public class TestSuiteB {
 	private String proxyPort;   //  8080
 
 	private void setUP() {
-		autHost = System.getProperty("APP_HOST");
+		autHost = System.getProperty("app.host");
 		if (autHost == null || autHost == "") autHost = "http://54.146.140.70";
-		autPort = System.getProperty("APP_PORT");
+		autPort = System.getProperty("app.port");
 		if (autPort == null || autPort == "") autPort = "9000";
 
-		proxyHost = System.getProperty("PROXY_HOST");
-		proxyPort = System.getProperty("PROXY_PORT");
+		proxyHost = System.getProperty("proxy.host");
+		proxyPort = System.getProperty("proxy.port");
 
-		if (proxyHost != null && proxyPort != null && proxyHost != "" && proxyPort != "") {
+		if (proxyHost == null || proxyPort == null || proxyHost == "" || proxyPort == "") {
+			driver = new HtmlUnitDriver();
+		} else {
 			Proxy proxy = new Proxy();
 			proxy.setHttpProxy(proxyHost + ":" + proxyPort);
 			DesiredCapabilities cap = new DesiredCapabilities();
 			cap.setCapability(CapabilityType.PROXY, proxy);
 			driver = new HtmlUnitDriver(cap);
-		} else {
-			driver = new HtmlUnitDriver();
 		}
 
 		driver.get(autHost + ":" + autPort);
