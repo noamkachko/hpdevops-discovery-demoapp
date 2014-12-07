@@ -1,235 +1,235 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
+	<meta charset="UTF-8">
+	<title></title>
 
-    <style>
-        div#wholeForm {
-            position: static;
-            left: 20%;
-            top: 10px;
-            width: 100%;
-        }
+	<style>
+		div#wholeForm {
+			position: static;
+			left: 20%;
+			top: 10px;
+			width: 100%;
+		}
 
-        div#mandatoryFields {
-            position: absolute;
-            width: 60%;
-            border: 2px solid gray;
-            border-radius: 15px;
-            padding: 10px;
-            left: 30px;
-            top: 30px;
-        }
+		div#mandatoryFields {
+			position: absolute;
+			width: 60%;
+			border: 2px solid gray;
+			border-radius: 15px;
+			padding: 10px;
+			left: 30px;
+			top: 30px;
+		}
 
-        .mandatoryField {
-            text-align: left;
-            vertical-align: middle;
-        }
+		.mandatoryField {
+			text-align: left;
+			vertical-align: middle;
+		}
 
-        div#optionalFields {
-            position: absolute;
-            padding: 10px;
-            left: 0px;
-            top: 30px;
-            visibility: visible;
-            opacity: 0;
-            border: 2px solid gray;
-            border-radius: 15px;
-            width: 60%;
-            z-index: -1;
-        }
+		div#optionalFields {
+			position: absolute;
+			padding: 10px;
+			left: 0px;
+			top: 30px;
+			visibility: visible;
+			opacity: 0;
+			border: 2px solid gray;
+			border-radius: 15px;
+			width: 60%;
+			z-index: -1;
+		}
 
-        div#submitter {
-            position: absolute;
-            padding: 10px;
-            visibility: hidden;
-        }
+		div#submitter {
+			position: absolute;
+			padding: 10px;
+			visibility: hidden;
+		}
 
-        #params {
-            resize: none;
-            vertical-align: middle;
-        }
+		#params {
+			resize: none;
+			vertical-align: middle;
+		}
 
-        label {
-            font-family: Times New Roman, serif;
-            font-size: 150%;
-            font-style: italic;
-        }
+		label {
+			font-family: Times New Roman, serif;
+			font-size: 150%;
+			font-style: italic;
+		}
 
-        #testsList, th, td {
-            border: 2px solid gray;
-            border-collapse: collapse;
-            padding: 3px;
-            text-align: center;
-        }
+		#testsList, th, td {
+			border: 2px solid gray;
+			border-collapse: collapse;
+			padding: 3px;
+			text-align: center;
+		}
 
-            /* Chrome, Safari, Opera */
-        @-webkit-keyframes optionalmove {
-            from {
-                opacity: 0.1;
-            }
-            to {
-                top: 130px;
-                opacity: 1;
-            }
-        }
+			/* Chrome, Safari, Opera */
+		@-webkit-keyframes optionalmove {
+			from {
+				opacity: 0.1;
+			}
+			to {
+				top: 130px;
+				opacity: 1;
+			}
+		}
 
-        @keyframes optionalmove {
-            from {
-                opacity: 0.1;
-            }
-            to {
-                top: 130px;
-                opacity: 1;
-            }
-        }
-    </style>
+		@keyframes optionalmove {
+			from {
+				opacity: 0.1;
+			}
+			to {
+				top: 130px;
+				opacity: 1;
+			}
+		}
+	</style>
 </head>
 <body>
 
 <form name="mainFormat" action="javascript:runJob()">
-    <div id="wholeForm">
-        <div id="mandatoryFields" onkeyup="showOptionalParams()">
-            <label for="jenkinsUrl" width="20%">Jenkins URL: </label>
-            <input type="text" name="jenkinsUrl" id="jenkinsUrl" class="mandatoryField" size="80"
-                   value="http://myd-vm02771.hpswlabs.adapps.hp.com:8080/jenkins"/>
+	<div id="wholeForm">
+		<div id="mandatoryFields" onkeyup="showOptionalParams()">
+			<label for="jenkinsUrl" width="20%">Jenkins URL: </label>
+			<input type="text" name="jenkinsUrl" id="jenkinsUrl" class="mandatoryField" size="80"
+			       value="http://myd-vm02771.hpswlabs.adapps.hp.com:8080/jenkins"/>
 
-            <p/>
-            <label for="techStack">Technology stack: </label>
-            <select name="techStack" id="techStack" class="mandatoryField" max-width="100"
-                    onchange="showOptionalParams(); ">
-                <option value="">Select the tests technology...</option>
-                <option value="Selenium-Junit">Selenium/JUnit</option>
-                <option value="SeleniumTestng">Selenium/TestNG</option>
-                <option value="UFT">UFT</option>
-            </select>
+			<p/>
+			<label for="techStack">Technology stack: </label>
+			<select name="techStack" id="techStack" class="mandatoryField" max-width="100"
+			        onchange="showOptionalParams(); ">
+				<option value="">Select the tests technology...</option>
+				<option value="Selenium-Junit">Selenium/JUnit</option>
+				<option value="SeleniumTestng">Selenium/TestNG</option>
+				<option value="UFT">UFT</option>
+			</select>
 
-            <p/>
+			<p/>
 
-            <div id="optionalFields">
+			<div id="optionalFields">
 
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 
-    <div id="submitter">
-        <input type="submit" id="submitBtn" value="Run it!"/>
-    </div>
+	<div id="submitter">
+		<input type="submit" id="submitBtn" value="Run it!"/>
+	</div>
 </form>
 
 <script>
 
-    function test(cclass, mmethod, ttech) {
-        this.cclass = cclass;
-        this.mmethod = mmethod;
-        this.ttech = ttech;
-    }
+	function test(cclass, mmethod, ttech) {
+		this.cclass = cclass;
+		this.mmethod = mmethod;
+		this.ttech = ttech;
+	}
 
-    var tests = [];
-    tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestA", "testUIcaseA", "Selenium-Junit");
-    tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestA", "testUIcaseB", "Selenium-Junit");
-    tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestB", "testUIcaseC", "Selenium-Junit");
-    tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestB", "testUIcaseD", "Selenium-Junit");
+	var tests = [];
+	tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestA", "testUIcaseA", "Selenium-Junit");
+	tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestA", "testUIcaseB", "Selenium-Junit");
+	tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestB", "testUIcaseC", "Selenium-Junit");
+	tests[tests.length] = new test("com.hp.devops.demoapp.tests.ui.TestB", "testUIcaseD", "Selenium-Junit");
 
-    var movingDiv = document.getElementById("optionalFields");
-    movingDiv.addEventListener("webkitAnimationEnd", moveButton, false);
-    movingDiv.addEventListener("animationend", moveButton, false);
-    function moveButton() {
-        document.getElementById("submitter").style.left = '30px';
-        document.getElementById("submitter").style.top = (movingDiv.offsetTop + movingDiv.offsetHeight + 40) + 'px';
-        document.getElementById("submitter").style.visibility = "visible";
-    }
+	var movingDiv = document.getElementById("optionalFields");
+	movingDiv.addEventListener("webkitAnimationEnd", moveButton, false);
+	movingDiv.addEventListener("animationend", moveButton, false);
+	function moveButton() {
+		document.getElementById("submitter").style.left = '30px';
+		document.getElementById("submitter").style.top = (movingDiv.offsetTop + movingDiv.offsetHeight + 40) + 'px';
+		document.getElementById("submitter").style.visibility = "visible";
+	}
 
 
-    function runJob() {
+	function runJob() {
 
-        var selectedTests = [];
+		var selectedTests = [];
 
-        var selectors = document.getElementById("testsList").getElementsByClassName("testSelector");
-        var arrSelectors = Array.prototype.slice.call(selectors);
-        if (!document.getElementById("allTestsSelected").checked) {  //nothing should be passed for running all tests
-            arrSelectors.forEach(function (element) {
-                if (element.checked) {
-                    selectedTests[selectedTests.length] = element.value;
-                }
-            });
-        }
-        var testsString = buildJunitTestString(selectedTests);
+		var selectors = document.getElementById("testsList").getElementsByClassName("testSelector");
+		var arrSelectors = Array.prototype.slice.call(selectors);
+		if (!document.getElementById("allTestsSelected").checked) {  //nothing should be passed for running all tests
+			arrSelectors.forEach(function (element) {
+				if (element.checked) {
+					selectedTests[selectedTests.length] = element.value;
+				}
+			});
+		}
+		var testsString = buildJunitTestString(selectedTests);
 
-        var xmlhttp = new XMLHttpRequest();
-        xmlhttp.onreadystatechange = function () {
-        }
-        //http://myd-vm02771.hpswlabs.adapps.hp.com:8080/jenkins
-        //var dest = document.getElementById("jenkinsUrl").value + '/job/' + document.getElementById("techStack").value + '/build?delay=0sec';
-        var dest = document.getElementById("jenkinsUrl").value + '/job/' + document.getElementById("techStack").value + '/build?delay=0sec';
-        console.log("Destination URL: " + dest);
-        xmlhttp.open('POST', dest, true);
-        xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
-        var dTestString = '-Dtest=' + testsString;
-        console.log('DTESTSTRING: ' + dTestString);
-        //json="{'parameter': [{'name': 'useProxy', 'value': 'false'},{'name': 'appUrl', 'value': 'http://myd-vm05069.hpswlabs.adapps.hp.com:9080'},{'name': 'testsToRun', 'value': '-Dtest=com.hp.devops.demoapp.tests.ui.TestA#testUIcaseA+testUIcaseB'}]}"
-        var data = "json=" + "{'parameter': [{'name': 'useProxy', 'value': 'false'},{'name': 'appUrl', 'value': 'http://myd-vm05069.hpswlabs.adapps.hp.com:9080'},{'name': 'testsToRun', 'value': '" + encodeURIComponent('-Dtest=' + testsString) + "'}]}";
-        console.log('data = ' + data);
-        console.log("Form data: " + data);
-        xmlhttp.send(data);
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function () {
+		}
+		//http://myd-vm02771.hpswlabs.adapps.hp.com:8080/jenkins
+		//var dest = document.getElementById("jenkinsUrl").value + '/job/' + document.getElementById("techStack").value + '/build?delay=0sec';
+		var dest = document.getElementById("jenkinsUrl").value + '/job/' + document.getElementById("techStack").value + '/build?delay=0sec';
+		console.log("Destination URL: " + dest);
+		xmlhttp.open('POST', dest, true);
+		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xmlhttp.setRequestHeader("Access-Control-Allow-Origin", "*");
+		var dTestString = '-Dtest=' + testsString;
+		console.log('DTESTSTRING: ' + dTestString);
+		//json="{'parameter': [{'name': 'useProxy', 'value': 'false'},{'name': 'appUrl', 'value': 'http://myd-vm05069.hpswlabs.adapps.hp.com:9080'},{'name': 'testsToRun', 'value': '-Dtest=com.hp.devops.demoapp.tests.ui.TestA#testUIcaseA+testUIcaseB'}]}"
+		var data = "json=" + "{'parameter': [{'name': 'useProxy', 'value': 'false'},{'name': 'appUrl', 'value': 'http://myd-vm05069.hpswlabs.adapps.hp.com:9080'},{'name': 'testsToRun', 'value': '" + encodeURIComponent('-Dtest=' + testsString) + "'}]}";
+		console.log('data = ' + data);
+		console.log("Form data: " + data);
+		xmlhttp.send(data);
 
-    }
+	}
 
-    //create string like class1#test1+test2,class2#test3+test4 from array of FQDN classname#method
-    function buildJunitTestString(selectedTests) {
-        if (selectedTests.length == 0) {
-            return "";
-        } else {
-            var allClasses = [];
-            var allStrings = {};
-            selectedTests.forEach(function (element) {
-                var afterSplit = element.split("#");
-                if (afterSplit.length == 2) {
-                    if (allClasses.indexOf(afterSplit[0]) == -1) {    //first method for the class
-                        allClasses.push(afterSplit[0]);
-                        allStrings[afterSplit[0]] = afterSplit[1];
-                    } else {    //add the method only using the # delimiter
-                        var classMethods = allStrings[afterSplit[0]];
-                        classMethods += "+";
-                        classMethods += afterSplit[1];
-                        allStrings[afterSplit[0]] = classMethods;
-                    }
-                }
-            });
-            var finalString = "";
-            allClasses.forEach(function (element) {
-                finalString += element + "#" + allStrings[element] + ",";
-            });
-            return finalString.substring(0, finalString.lastIndexOf(','));
-        }
-    }
+	//create string like class1#test1+test2,class2#test3+test4 from array of FQDN classname#method
+	function buildJunitTestString(selectedTests) {
+		if (selectedTests.length == 0) {
+			return "";
+		} else {
+			var allClasses = [];
+			var allStrings = {};
+			selectedTests.forEach(function (element) {
+				var afterSplit = element.split("#");
+				if (afterSplit.length == 2) {
+					if (allClasses.indexOf(afterSplit[0]) == -1) {    //first method for the class
+						allClasses.push(afterSplit[0]);
+						allStrings[afterSplit[0]] = afterSplit[1];
+					} else {    //add the method only using the # delimiter
+						var classMethods = allStrings[afterSplit[0]];
+						classMethods += "+";
+						classMethods += afterSplit[1];
+						allStrings[afterSplit[0]] = classMethods;
+					}
+				}
+			});
+			var finalString = "";
+			allClasses.forEach(function (element) {
+				finalString += element + "#" + allStrings[element] + ",";
+			});
+			return finalString.substring(0, finalString.lastIndexOf(','));
+		}
+	}
 
-    //show the tables of tests (predefined array at the beginning)
-    function showOptionalParams() {
-        if (document.getElementById("jenkinsUrl").value.length > 3 && document.getElementById("techStack").selectedIndex > 0) {
+	//show the tables of tests (predefined array at the beginning)
+	function showOptionalParams() {
+		if (document.getElementById("jenkinsUrl").value.length > 3 && document.getElementById("techStack").selectedIndex > 0) {
 
-            document.getElementById("optionalFields").innerHTML = "<table id='testsList'><thead><tr><th>Test class</th><th>Test name</th><th>Add to run?</th></tr></thead>";
-            tests.forEach(function (element) {
-                if (element.ttech == document.getElementById("techStack").value) {
-                    document.getElementById("testsList").innerHTML += "<tr><td>" + element.cclass + "</td><td>" + element.mmethod + "</td>" +
-                            "<td><input type='checkbox' class='testSelector' value=" + element.cclass + "#" + element.mmethod + "></td></tr>";
-                }
-            });
-            document.getElementById("testsList").innerHTML += "<tr><td>All classes</td><td>All tests</td>" +
-                    "<td><input type='checkbox' class='testSelector' id='allTestsSelected' value=all></td></tr>";
-            document.getElementById("optionalFields").innerHTML += "</table>";
+			document.getElementById("optionalFields").innerHTML = "<table id='testsList'><thead><tr><th>Test class</th><th>Test name</th><th>Add to run?</th></tr></thead>";
+			tests.forEach(function (element) {
+				if (element.ttech == document.getElementById("techStack").value) {
+					document.getElementById("testsList").innerHTML += "<tr><td>" + element.cclass + "</td><td>" + element.mmethod + "</td>" +
+							"<td><input type='checkbox' class='testSelector' value=" + element.cclass + "#" + element.mmethod + "></td></tr>";
+				}
+			});
+			document.getElementById("testsList").innerHTML += "<tr><td>All classes</td><td>All tests</td>" +
+					"<td><input type='checkbox' class='testSelector' id='allTestsSelected' value=all></td></tr>";
+			document.getElementById("optionalFields").innerHTML += "</table>";
 
-            if (document.getElementById("optionalFields").style.visibility != "visible") {
-                document.getElementById("optionalFields").style.visibility = "visible";
-                document.getElementById("optionalFields").style.animation = "optionalmove 3s 1 forwards";
-                document.getElementById("optionalFields").style.webkitAnimation = "optionalmove 3s 1 forwards";
-            } else {
-                moveButton();
-            }
-        }
-    }
+			if (document.getElementById("optionalFields").style.visibility != "visible") {
+				document.getElementById("optionalFields").style.visibility = "visible";
+				document.getElementById("optionalFields").style.animation = "optionalmove 3s 1 forwards";
+				document.getElementById("optionalFields").style.webkitAnimation = "optionalmove 3s 1 forwards";
+			} else {
+				moveButton();
+			}
+		}
+	}
 
 
 </script>
