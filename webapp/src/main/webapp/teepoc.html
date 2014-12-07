@@ -92,7 +92,7 @@
     <div id="wholeForm">
         <div id="mandatoryFields" onkeyup="showOptionalParams()">
             <label for="jenkinsUrl" width="20%">Jenkins URL: </label>
-            <input type="text" name="jenkinsUrl" id="jenkinsUrl" class="mandatoryField" size="80"/>
+            <input type="text" name="jenkinsUrl" id="jenkinsUrl" class="mandatoryField" size="80" value="http://myd-vm02771.hpswlabs.adapps.hp.com:8080/jenkins"/>
 
             <p/>
             <label for="techStack">Technology stack: </label>
@@ -100,7 +100,7 @@
                     onchange="showOptionalParams(); ">
                 <option value="">Select the tests technology...</option>
                 <option value="SeleniumJunit">Selenium/JUnit</option>
-                <option value="SeleniumTestng">Selenium/Test NG</option>
+                <option value="SeleniumTestng">Selenium/TestNG</option>
                 <option value="UFT">UFT</option>
             </select>
 
